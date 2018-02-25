@@ -1,0 +1,18 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+<qresource prefix="/">
+    <file>images/appointment-new.png</file>
+    <file>images/appointment-delete.png</file>
+    <file>images/user_add.png</file>
+    <file>images/user_remove.png</file>
+    <file>images/go-next-view-page.png</file>
+    <file>images/go-previous-view-page.png</file>
+    <file>images/klipper.png</file>
+    <file>images/system-shutdown.png</file>
+    <file>images/order.png</file>
+    <file>images/save.png</file>
+    <file>images/data_delete.png</file>
+    <file>images/data_add.png</file>
+    <file>theme/default.qss</file>
+</qresource>
+</RCC>
