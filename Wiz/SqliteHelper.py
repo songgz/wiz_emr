@@ -22,3 +22,8 @@ class SqliteHelper:
         if self.db.isValid():
             if self.db.isOpen():
                 self.db.close()
+
+    def exec(self, sql, params):
+        query = QSqlQuery()
+        query.prepare(sql, params)
+        query.exec()
