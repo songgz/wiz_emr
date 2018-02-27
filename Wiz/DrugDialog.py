@@ -16,8 +16,6 @@ class DrugDialog(QWidget):
         self.model.setHeaderData(1, Qt.Horizontal, "药品名称")
         self.model.setHeaderData(2, Qt.Horizontal, "拼音码")
         self.model.setHeaderData(3, Qt.Horizontal, "备注")
-        #self.model.setHeaderData(3, Qt.Horizontal, "年龄")
-        #self.model.setHeaderData(5, Qt.Horizontal, "日期")
         self.model.select()
         self.table = QTableView()
         self.addBtn = QPushButton('新建')

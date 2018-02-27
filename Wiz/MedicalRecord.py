@@ -2,7 +2,7 @@ from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from PyQt5.QtGui import QIcon
 from Wiz.Conn import *
-from Wiz.AutoComboBox import AutoComboBox
+from Wiz.DrugComboBox import *
 
 
 class DBComboBoxDelegate(QItemDelegate):
@@ -11,10 +11,9 @@ class DBComboBoxDelegate(QItemDelegate):
         self.itemModel = item_model
 
     def createEditor(self, parent, option, proxyModelIndex):
-        combo = AutoComboBox(parent)
+        combo = DrugComboBox(parent)
         combo.setModel(self.itemModel)
         combo.setEditable(True)
-        #self.connect(combo, SIGNAL("currentIndexChanged(int)"), self, SLOT("currentIndexChanged()"))
         return combo
 
     def setEditorData(self, editor, index):
@@ -341,7 +340,7 @@ class MedicalRecord(QWidget):
 if __name__ == "__main__":
     import sys
     app = QApplication(sys.argv)
-    combo = AutoComboBox()
+    combo = DrugComboBox()
     names = ['bob', 'fred', 'bobby', 'frederick', 'charles', 'charlie', 'rob']
     #combo.addItems(names)
     drug = QtSql.QSqlQueryModel()
