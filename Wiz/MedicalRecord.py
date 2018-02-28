@@ -6,9 +6,10 @@ from Wiz.DrugComboBox import *
 
 
 class DBComboBoxDelegate(QItemDelegate):
-    def __init__(self, item_model, parent=None):
+    def __init__(self, parent=None):
         QItemDelegate.__init__(self, parent)
-        self.itemModel = item_model
+        self.itemModel = QtSql.QSqlQueryModel()
+        self.itemModel.setQuery('select name, id, pinyin from drug')
 
     def createEditor(self, parent, option, proxyModelIndex):
         combo = DrugComboBox(parent)
@@ -38,6 +39,30 @@ class DBComboBoxDelegate(QItemDelegate):
                 str = rec.value('name')
                 break
         painter.drawText(option.rect, Qt.AlignLeft | Qt.AlignVCenter, str)
+
+
+class SpinDelegate(QItemDelegate):
+    def __init__(self):
+        super(SpinDelegate, self).__init__()
+        pass
+
+    def createEditor(self, parent, QStyleOptionViewItem, QModelIndex):
+        editor = QSpinBox(parent)
+        editor.installEventFilter(self)
+        editor.setMinimum(0)
+        editor.setMaximum(1000)
+        return editor
+
+    def setEditorData(self, editor, index):
+        value = index.model().data(index, Qt.EditRole)
+        editor.setValue(value)
+
+    def setModelData(self, editor, model, index):
+        value = editor.value()
+        model.setData(index, value, Qt.EditRole)
+
+    def updateEditorGeometry(self, editor, option, index):
+        editor.setGeometry(option.rect)
 
 
 class MedicalRecord(QWidget):
@@ -148,9 +173,9 @@ class MedicalRecord(QWidget):
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table.setColumnHidden(0, True)
         self.table.setColumnHidden(4, True)
-        drug = QtSql.QSqlQueryModel()
-        drug.setQuery('select name, id, pinyin from drug')
-        self.table.setItemDelegateForColumn(1, DBComboBoxDelegate(drug, self.table))
+
+        self.table.setItemDelegateForColumn(1, DBComboBoxDelegate(self.table))
+        self.table.setItemDelegateForColumn(2, SpinDelegate())
         self.table.setContextMenuPolicy(Qt.CustomContextMenu)
         self.table.customContextMenuRequested.connect(self.open_menu)
 

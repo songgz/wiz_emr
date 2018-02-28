@@ -58,3 +58,14 @@ class DrugDialog(QWidget):
     def del_drug(self):
         self.model.removeRow(self.table.currentIndex().row())
         pass
+
+
+if __name__ == '__main__':
+    import sys
+    app = QApplication(sys.argv)
+    win = DrugDialog()
+    win.resize(640, 480)
+    win.setWindowTitle('Drug')
+    win.show()
+    sys.exit(app.exec_())
+    pass

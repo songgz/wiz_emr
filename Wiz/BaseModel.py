@@ -9,5 +9,14 @@ class BaseModel(Model):
         database = db
 
 
+class Drug(BaseModel):
+    id = IntegerField()
+    name = CharField()
+    pinyin = CharField()
+
+
 if __name__ == '__main__':
     print(db.connect())
+    d = Drug.select()[0]
+    print(getattr(d, 'name'))
+

@@ -1,6 +1,7 @@
 from PyQt5.QtWidgets import *
 from PyQt5.QtCore import *
 from Wiz.Conn import *
+from Wiz.DrugModel import *
 
 
 class DrugComboBox(QComboBox):
@@ -41,6 +42,7 @@ class DrugComboBox(QComboBox):
         self.filterModel.setFilterFixedString(text)
 
     def on_completer_activated(self, text):
+        print(text)
         if text:
             index = self.findText(text)
             self.setCurrentIndex(index)
@@ -52,8 +54,8 @@ if __name__ == "__main__":
     combo = DrugComboBox()
     drug = QtSql.QSqlQueryModel()
     drug.setQuery('select name, id, pinyin from drug')
-    combo.setModel(drug)
-    combo.setModelColumn(0)
+    combo.setModel(DrugModel())
+    combo.setModelColumn(1)
     combo.resize(300, 40)
     combo.show()
     sys.exit(app.exec_())
